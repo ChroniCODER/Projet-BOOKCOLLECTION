@@ -25,31 +25,31 @@
 		$errors = [];
 
 		if (!empty($_POST['name'])) {
-			$book_name = trim($_POST['name']);
+			$book_name = ($_POST['name']);
 		} else {
 			$errors[]= 'Le nom est manquant.';
 		}
 
 		if (!empty($_POST['date'])) {
-			$release_date = trim($_POST['date']);
+			$release_date = ($_POST['date']);
 		} else {
 			$errors[]= 'La date est manquante.';
 		}
 
 		if (!empty($_POST['author_id'])) {
-			$author_name = trim($_POST['author_id']);
+			$author_name = ($_POST['author_id']);
 		} else {
 			$errors[]= 'L\'auteur est manquant.';
 		}
 
 		if (!empty($_POST['style_id'])) {
-			$style_name = trim($_POST['style_id']);
+			$style_name = ($_POST['style_id']);
 		} else {
 			$errors[]= 'Le genre est manquant.';
 		}
 		
 		if (empty($errors)) {
-			$sql = 'SELECT * FROM  book WHERE `name` = :name';
+			$sql = 'SELECT * FROM book WHERE `name` = :name';
 			$stmt = $conn->prepare($sql);
 			$stmt->bindValue(':name', $book_name, \PDO::PARAM_STR);
 			$stmt->execute();
@@ -75,12 +75,10 @@
 				echo $error . '<br/>';
 			}
 		}
-	} else {
-		echo "FAIL";
 	}
-		
 ?>
 <h1> Suivre le lien ci-dessous pour revenir à l'index </h1>
-<a href = /index.php> RETOUR PAGE ACCUEIL </a>
+<a href = /index.php> RETOUR PAGE ACCUEIL </a></br>
+<a href = /createBook.php> RETOUR AJOUT NOUVEAU LIVRE </a>
 </body>
 </html>

@@ -52,6 +52,8 @@
 				echo '<td>' . $book['release'] . '</td>';
 				echo '<td>' . $book['firstname'] . ' ' . $book['lastname'] . '</td>';
 				echo '<td>' . $book['style_name'] . '</td>';
+				echo '<td>' . '<button>' . 'MODIFY' . '</button>';
+				echo '<td>' . '<button>' . 'DELETE' . '</button>';
 			echo '</tr>';
 		}
 	?>

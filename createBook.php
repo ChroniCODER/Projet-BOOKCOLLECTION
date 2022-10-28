@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Ajouter un nouveau livre</title>
 </head>
 
 <!-- PDO -->
@@ -59,7 +59,7 @@
 		?>
 		
 	</select>
-	
+<p>OU <a href = /createAuthor.php alt = "ajouter un nouvel auteur">ajouter un nouvel auteur</a>	</p>
 	
 <!-- TABLE STYLE-->
 <h2> Ajouter un genre littéraire</h2>
@@ -77,7 +77,7 @@
 		?>
 		
 	</select>
-	
+	<p>OU <a href = /createStyle.php alt = "ajouter un nouveau genre">ajouter un nouveau genre</a>	</p>
 	</br></br> <input type="submit" value="Enregistrer" />
 	
 </form>
