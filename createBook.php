@@ -84,13 +84,3 @@
 
 </body>
 </html>
-
-
-<!--
-<h2> Ajouter un auteur </h2>
-
-	<form method="post">
-		Firstname : <input type="text" name="firstname" placeholder="Entrez le prénom" /><br />
-		Lastname : <input type="text" name="lastname" placeholder="Entrez le nom" /><br />
-		<input type="submit" value="Submit" />
-	</form> -->

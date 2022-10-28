@@ -9,39 +9,78 @@
 <body>
 
 <?php
-			$servername = 'localhost';
-			$username = 'root';
-			$password = '';
-			
-			//On établit la connexion
-			$conn = new PDO("mysql:host=$servername;dbname=bookcollection", $username, $password);
+	$servername = 'localhost';
+	$username = 'root';
+	$password = '';
+	
+	//On établit la connexion
+	$conn = new PDO("mysql:host=$servername;dbname=bookcollection", $username, $password);
 	 
 ?>
 
-<h1> VOTRE LIVRE A BIEN ETE AJOUTE </h1>
+<h1> STATUS </h1>
+
 <?php
+	if (!empty($_POST)) {
+		$errors = [];
 
-	$book_name = trim($_POST['name']);
-	$release_date = trim($_POST['date']);
-	$author_name = trim($_POST['author_id']);
-	$style_name = trim($_POST['style_id']);
-	
-$sql = 'INSERT INTO book (`name`, `release`, `author_id`, `style_id`) VALUES (:name, :date, :author, :style)';
+		if (!empty($_POST['name'])) {
+			$book_name = trim($_POST['name']);
+		} else {
+			$errors[]= 'Le nom est manquant.';
+		}
 
-$stmt = $conn->prepare($sql);
+		if (!empty($_POST['date'])) {
+			$release_date = trim($_POST['date']);
+		} else {
+			$errors[]= 'La date est manquante.';
+		}
 
-$stmt->bindValue(':name', $book_name, \PDO::PARAM_STR);
-$stmt->bindValue(':date', $release_date, \PDO::PARAM_STR);
-$stmt->bindValue(':author', $author_name, \PDO::PARAM_STR);
-$stmt->bindValue(':style', $style_name, \PDO::PARAM_STR);
+		if (!empty($_POST['author_id'])) {
+			$author_name = trim($_POST['author_id']);
+		} else {
+			$errors[]= 'L\'auteur est manquant.';
+		}
 
-	
-		if (!empty($_POST) ) {
-			$stmt->execute();
+		if (!empty($_POST['style_id'])) {
+			$style_name = trim($_POST['style_id']);
+		} else {
+			$errors[]= 'Le genre est manquant.';
 		}
 		
+		if (empty($errors)) {
+			$sql = 'SELECT * FROM  book WHERE `name` = :name';
+			$stmt = $conn->prepare($sql);
+			$stmt->bindValue(':name', $book_name, \PDO::PARAM_STR);
+			$stmt->execute();
+			$books = $stmt->fetchAll();
+
+			if (count($books)) {
+				echo "This book already exists.";
+			} else {
+				$sql = 'INSERT INTO book (`name`, `release`, `author_id`, `style_id`) VALUES (:name, :date, :author, :style)';
+
+				$stmt = $conn->prepare($sql);
+			
+				$stmt->bindValue(':name', $book_name, \PDO::PARAM_STR);
+				$stmt->bindValue(':date', $release_date, \PDO::PARAM_STR);
+				$stmt->bindValue(':author', $author_name, \PDO::PARAM_STR);
+				$stmt->bindValue(':style', $style_name, \PDO::PARAM_STR);
+			
+				$stmt->execute();
+				echo "VOTRE LIVRE A BIEN ETE AJOUTE";
+			}
+		} else {
+			foreach ($errors as $error) {
+				echo $error . '<br/>';
+			}
+		}
+	} else {
+		echo "FAIL";
+	}
+		
 ?>
-<h1> Suivre le lien ci-dessous pour revenir à l'index </h1> 
+<h1> Suivre le lien ci-dessous pour revenir à l'index </h1>
 <a href = /index.php> RETOUR PAGE ACCUEIL </a>
 </body>
 </html>
