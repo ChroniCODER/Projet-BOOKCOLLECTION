@@ -19,10 +19,22 @@
 	 
 ?>
 
+
+
 <body>
 
 <?php
-echo var_dump($_GET)
+	$target_id = $_GET['id'];
+	$target_book = $conn->query ('SELECT b.*, a.firstname, a.lastname, b.release, s.name style_name FROM book b JOIN author a 
+								  ON a.id=b.author_id JOIN style s ON s.id=b.style_id WHERE b.id = ' . $_GET['id']);
+	$book = $target_book->fetch();
+		
+?>
+
+</br>
+
+<?php
+
 ?>
 <h1> Suivre le lien ci-dessous pour revenir à l'index </h1> 
 <a href = /index.php> RETOUR PAGE ACCUEIL </a>
@@ -33,9 +45,9 @@ echo var_dump($_GET)
 <!-- champs name -->
 <h2>Modifier le nom </h2>
 
-<form method="post" action="addValid.php">
+<form method="post" action="modifyValid.php?id=<?= $_GET['id'] ?>">
 
-		name : <input type="text" name="name" placeholder="150 characteres MAX" /><br />
+		name : <input type="text" name="name" value= "<?php echo $book['name'] ?>" /><br />
 		
 	
 
@@ -43,7 +55,7 @@ echo var_dump($_GET)
 <h2>Modifier la date de sortie </h2>
 
 	
-		date : <input type="date" name="date" placeholder="Entrez la date"/><br />
+		date : <input type="date" name="date" value= "<?php echo $book['release'] ?>" /><br />
 		
 
 <!-- TABLE AUTHOR -->
@@ -57,7 +69,14 @@ echo var_dump($_GET)
 			$authors = $conn->query ('SELECT a.* FROM author a ORDER BY lastname ASC');
 			foreach ($authors as $author)
 			{
-				echo '<option value="' . $author['id'] . '">' .$author['id'] . ' - ' .$author['lastname'] . ' '. $author['firstname'] . '</option>';
+				echo '<option value="' . $author['id'] . '"';
+				
+				if ($author['id'] === $book['author_id']) echo ' selected';
+
+				echo '>' .$author['id'] . ' - ' .$author['lastname'] . ' '. $author['firstname'] . '</option>';
+
+				//<option value="$author['id']">Marc</option>
+				//<option value="3" selected>Marc</option>
 			}
 		?>
 		
@@ -75,7 +94,11 @@ echo var_dump($_GET)
 			$styles = $conn->query ('SELECT s.*, s.name style_name FROM style s ORDER BY style_name ASC');
 			foreach ($styles as $style)
 			{
-				echo '<option value="' . $style['id'] . '">' .$style['id'] . ' - ' .$style['name'] . ' '. '</option>';
+				echo '<option value="' . $style['id'] . '"';
+
+				if ($style['id'] === $book['style_id']) echo ' selected';
+
+				echo '>' .$style['id'] . ' - ' .$style['name'] . ' '. '</option>';
 			}
 		?>
 		
