@@ -69,7 +69,7 @@
 				$stmt->bindValue(':id', $_GET['id'], \PDO::PARAM_INT);
 			
 				$stmt->execute();
-				echo "VOTRE LIVRE A BIEN ETE AJOUTE";
+				echo "VOTRE LIVRE A BIEN ETE MODIFIE";
 			}
 		} else {
 			foreach ($errors as $error) {

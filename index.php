@@ -53,7 +53,7 @@
 				echo '<td>' . $book['firstname'] . ' ' . $book['lastname'] . '</td>';
 				echo '<td>' . $book['style_name'] . '</td>';
 				echo '<td> <a href = "/modifyBook.php?id=' . $book['id'] . '"> <button> MODIFY </button> </a>';
-				echo '<td>  <button>  DELETE  </button>';
+				echo '<td> <a href = "/deleteBook.php?id=' . $book['id'] . '"> <button> DELETE </button> </a>';
 				
 			echo '</tr>';
 		}
