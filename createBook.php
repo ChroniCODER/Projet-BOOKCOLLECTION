@@ -32,7 +32,7 @@
 
 <form method="post" action="addValid.php">
 
-		name : <input type="text" name="name" placeholder="150 characteres MAX" /><br />
+		nom : <input type="text" name="name" placeholder="150 characteres MAX" /><br />
 		
 	
 
@@ -47,7 +47,7 @@
 <h2> Ajouter un auteur </h2>
 
 	
-		Selectionnez un auteur: 
+		Selectionnez un auteur : 
 	<select name="author_id" id="author-select">
     <option value="">--Selectionner un auteur--</option>
 		<?php
